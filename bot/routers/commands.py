@@ -7,7 +7,7 @@ from aiogram.types import Message
 
 from bot.keyboards.reply import yes_no_kb
 from bot.template_engine import template_engine
-from bot.config import settings
+from bot.config_reader import config
 from bot.states import Form
 from bot.middlewares.resourses_middleware import ResourcesMiddleware
 
@@ -28,7 +28,7 @@ async def cmd_start(message: Message, state: FSMContext, db_session: AsyncSessio
     await message.answer(template_engine.render_template(
         "start",
         user_name=message.from_user.username,
-        bot_name=settings.bot.idea
+        bot_name=config.bot.name
     ),
         reply_markup=yes_no_kb())
     logger.debug(f"Sent answer for /start command to user {message.from_user.username}")

@@ -21,7 +21,7 @@ class Logging:
     debug: bool
 
 
-class Settings:
+class Config:
     def __init__(self, file_path):
         self.config = configparser.ConfigParser()
         self.config.read(file_path)
@@ -46,4 +46,4 @@ class Settings:
             debug=convertToBool(logging_conf["debug"]),
         )
 
-settings = Settings("bot/bot.ini")
+config = Config("bot/config.ini")
