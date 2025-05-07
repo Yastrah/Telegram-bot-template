@@ -1,14 +1,15 @@
 import logging
 from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.orm import declarative_base
 
-from bot.services.base import Base
+# from bot.services.base import Base
+
 
 logger = logging.getLogger(__name__)
 DATABASE_URL = "sqlite+aiosqlite:///data/database.db"
-###########################################################
-# Write with os
-###########################################################
 
+
+Base = declarative_base()
 engine = create_async_engine(DATABASE_URL)
 # async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 

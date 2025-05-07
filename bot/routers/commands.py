@@ -28,7 +28,7 @@ async def cmd_start(message: Message, state: FSMContext, db_session: AsyncSessio
     await message.answer(template_engine.render_template(
         "start",
         user_name=message.from_user.username,
-        bot_name=config.bot.name
+        bot_name=config.bot.login
     ),
         reply_markup=yes_no_kb())
     logger.debug(f"Sent answer for /start command to user {message.from_user.username}")

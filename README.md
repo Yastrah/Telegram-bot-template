@@ -2,7 +2,7 @@
 
 ![build](https://img.shields.io/badge/build-passing-orange)
 ![demo](https://img.shields.io/badge/demo-ready-green)
-![version](https://img.shields.io/badge/version-1.0.2-blue)
+![version](https://img.shields.io/badge/version-1.0.3-blue)
 
 
 A robust and scalable Telegram bot template built with **Python**, **Aiogram**, **SQLAlchemy**, and **Poetry**. This template is designed to help you kickstart your Telegram bot development with best practices, including logging, testing, and database integration.

@@ -12,7 +12,7 @@ from bot.config_reader import config
 
 from bot.services.database import init_models
 
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 load_dotenv(find_dotenv())
 
 logger = logging.getLogger(__name__)
