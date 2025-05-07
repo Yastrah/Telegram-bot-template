@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 @commands_router.message(Command("start"))
 @commands_router.message(F.text.casefold() == "start")
 async def cmd_start(message: Message, state: FSMContext, db_session: AsyncSession):
-    await state.set_state(Form.idea)
+    await state.set_state(Form.want_create_bot)
 
     await message.answer(template_engine.render_template(
         "start",
