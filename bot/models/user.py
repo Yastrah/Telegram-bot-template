@@ -7,9 +7,10 @@ from bot.services.database import Base
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(String(length=5), primary_key=True)
-    login = Column(String(length=30), nullable=False)
-    password = Column(String(length=30), nullable=True)
+    # id = Column(Integer, primary_key=True, autoincrement=True)  # autoincrement id
+    id = Column(Integer, primary_key=True, nullable=False)  # telegram id
+    login = Column(String(length=20), nullable=False)
+    password = Column(String(length=30), nullable=False)
 
     # connection with room Project
     projects = relationship(
@@ -27,11 +28,11 @@ class User(Base):
 class Project(Base):
     __tablename__ = 'projects'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(String(length=5), primary_key=True, nullable=False)
     owner_id = Column(String(length=5), ForeignKey('user.id'), nullable=False)
     project_name = Column(String(length=30), nullable=False)
 
     user = relationship("User", back_populates="projects")  # connection with User
 
     def __repr__(self):
-        return f"<project_name={self.project_name}, owner_id={self.owner_id}>"
+        return f"<id={self.id}, project_name={self.project_name}, owner_id={self.owner_id}>"
