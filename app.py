@@ -8,11 +8,12 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
 from bot.routers import include_all_routers
+from bot.middlewares import add_all_middlewares
 from bot.config_reader import config
 
 from bot.services.database import init_models
 
-VERSION = "1.0.3"
+VERSION = "1.0.4"
 load_dotenv(find_dotenv())
 
 logger = logging.getLogger(__name__)
@@ -39,6 +40,7 @@ async def main():
 
     dp = Dispatcher()
     include_all_routers(dp)  # including routers
+    add_all_middlewares(dp)  # adding middlewares
     logger.info(f"App version: {VERSION}\nStart polling...")
     await dp.start_polling(bot)
 

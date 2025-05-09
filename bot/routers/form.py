@@ -9,7 +9,7 @@ from aiogram.types import (
 
 from bot.keyboards.inline import confirm_kb
 from bot.template_engine import template_engine
-from bot.states import Form
+from bot.states import FormStates
 from bot.middlewares.resourses_middleware import ResourcesMiddleware
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -22,15 +22,15 @@ form_router.callback_query.middleware(ResourcesMiddleware())  # adding middlewar
 logger = logging.getLogger(__name__)
 
 
-@form_router.message(Form.want_create_bot, F.text.casefold() == "yes")  # reacts only when state is Form.like_bots
+@form_router.message(FormStates.want_create_bot, F.text.casefold() == "yes")  # reacts only when state is Form.like_bots
 @form_router.callback_query(F.data == "confirm")
 async def create_bot(message: Message, state: FSMContext, db_session: AsyncSession):
-    await state.set_state(Form.idea)
+    await state.set_state(FormStates.get_idea)
 
     await message.answer("Excellent! What is your bot idea and functions?", reply_markup=ReplyKeyboardRemove)
 
 
-@form_router.message(Form.want_create_bot, F.text.casefold() == "no")  # reacts only when state is Form.like_bots
+@form_router.message(FormStates.want_create_bot, F.text.casefold() == "no")  # reacts only when state is Form.like_bots
 async def not_create_bot(message: Message, state: FSMContext, db_session: AsyncSession):
     await state.clear()
 
@@ -38,15 +38,15 @@ async def not_create_bot(message: Message, state: FSMContext, db_session: AsyncS
                          reply_markup=confirm_kb())
 
 
-@form_router.message(Form.idea)
+@form_router.message(FormStates.get_idea)
 async def get_bot_idea(message: Message, state: FSMContext, db_session: AsyncSession):
-    await state.set_state(Form.language)
+    await state.set_state(FormStates.get_language)
     await state.update_data(bot_idea=message.text)  # saving bot idea
 
     await message.answer("Great idea, what main language are you going to use?", reply_markup=ReplyKeyboardRemove)
 
 
-@form_router.message(Form.language)
+@form_router.message(FormStates.get_language)
 async def get_bot_language(message: Message, state: FSMContext, db_session: AsyncSession):
     await state.clear()
     data = await state.get_data()  # get saved data

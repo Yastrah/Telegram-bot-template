@@ -8,7 +8,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from bot.services.database import engine
 
-logger = logging.getLogger(__name__)
 
 class ResourcesMiddleware(BaseMiddleware):
     def __init__(self):
@@ -32,16 +31,6 @@ class ResourcesMiddleware(BaseMiddleware):
             session: AsyncSession = data["db_session"]
             await session.commit()  # Commit changes
             await session.close()
-
-
-    # @staticmethod
-    # async def _provide_db_session() -> AsyncSession:
-    #     """
-    #     Provides `AsyncSession` object
-    #     :return: Initialized session
-    #     """
-    #     session = AsyncSession(engine)
-    #     return session
 
 
     async def __call__(

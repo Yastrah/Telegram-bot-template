@@ -46,22 +46,6 @@ async def delete_user_by_id(session: AsyncSession, user_id: int) -> bool:
     return False
 
 
-async def create_user(session: AsyncSession, user_id: int, user_name: str, password: str) -> bool:
-    new_user = User(
-        id=user_id,
-        user_name=user_name,
-        password=password,
-        projects=None
-        )
-    logger.debug(f"created {new_user}")
-    session.add(new_user)
-    await session.flush()  # Synchronize data with the database without closing the session
-    # await session.refresh(new_user) # updating object state
-    logger.debug(f"Added to database {new_user}")
-
-    return True
-
-
 async def add_project(session: AsyncSession, owner_id: str, project_name: str) -> Optional[str]:
     user = await get_user_by_id(session, owner_id)
     id = await generate_id(session)

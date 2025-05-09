@@ -8,7 +8,7 @@ from aiogram.types import Message
 from bot.keyboards.reply import yes_no_kb
 from bot.template_engine import template_engine
 from bot.config_reader import config
-from bot.states import Form
+from bot.states import FormStates
 from bot.middlewares.resourses_middleware import ResourcesMiddleware
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 @commands_router.message(Command("start"))
 @commands_router.message(F.text.casefold() == "start")
 async def cmd_start(message: Message, state: FSMContext, db_session: AsyncSession):
-    await state.set_state(Form.want_create_bot)
+    await state.set_state(FormStates.want_create_bot)
 
     await message.answer(template_engine.render_template(
         "start",
